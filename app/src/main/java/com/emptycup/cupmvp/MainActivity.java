@@ -21,7 +21,7 @@ public class MainActivity extends BaseActivity<MainView,MainPresenter> implement
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         try {
-            Init_Presenter();
+            Init_Presenter(MainPresenter.class.getName());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -30,8 +30,7 @@ public class MainActivity extends BaseActivity<MainView,MainPresenter> implement
             @Override
             public void onClick(View v) {
                 if (presenter != null){
-                    presenter.attachView(MainActivity.this);
-                    presenter.http_Model(MainActivity.this);
+                    presenter.http_Model();
                 }else{
                     Toast.makeText(MainActivity.this,"presenter is Null",Toast.LENGTH_SHORT).show();
                 }

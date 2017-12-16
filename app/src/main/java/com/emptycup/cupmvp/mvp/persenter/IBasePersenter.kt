@@ -1,5 +1,6 @@
 package com.emptycup.cupmvp.mvp.persenter
 
+import android.content.Context
 import android.icu.lang.UCharacter.GraphemeClusterBreak.V
 
 
@@ -15,10 +16,10 @@ import android.icu.lang.UCharacter.GraphemeClusterBreak.V
  */
 interface IBasePersenter<T,V> {
 
-    fun attachView(view: T)//初始化 View
+    fun attachView(pContext: Context, view: T)//初始化 View
     fun detachView()//将View值空
 
-    fun newInstanceModel(model:V)// 获取 Model 对象
+    fun newInstanceModel()// 获取 Model 对象
     fun detachModel()//销毁Model
 
     //绑定 Activity 生命周期 回收 引用类型

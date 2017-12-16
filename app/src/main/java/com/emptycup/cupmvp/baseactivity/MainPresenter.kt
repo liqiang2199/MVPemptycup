@@ -7,9 +7,10 @@ import com.emptycup.cupmvp.mvp.persenter.BasePersenterImp
  * Created by Administrator on 2017/12/16.
  */
 class MainPresenter :BasePersenterImp<MainModel>(){
-    fun http_Model(context:Context){
+    fun http_Model(){
         val v = MainModel()
-        v!!.Init_Handler(context,this)
+        newInstanceModel()
+        v!!.Init_Handler(pContext!!,this)
         v!!.http_GeRequest()
     }
 

@@ -1,5 +1,6 @@
 package com.emptycup.cupmvp.mvp.persenter
 
+import android.content.Context
 import com.emptycup.cupmvp.mvp.handlerview.IHandler
 import com.emptycup.cupmvp.mvp.model.BaseModel
 import com.emptycup.cupmvp.mvp.view.IBaseView
@@ -11,7 +12,6 @@ import java.lang.ref.WeakReference
  */
  abstract class BasePersenterImp<M : BaseModel> : IBasePersenter<IBaseView, M>,IHandler{
 
-    constructor()
     /**
      * 为了 使 Persenter 的子类 选择性 实现 IHandler 接口
      */
@@ -24,24 +24,28 @@ import java.lang.ref.WeakReference
 
     var iBaseView:IBaseView ?= null
     var iBaseModel:M ?= null
+    var pContext:Context ?= null
     //绑定View
-    override fun attachView(view: IBaseView) {
+    override fun attachView(pContext:Context,view: IBaseView) {
         this.iBaseView  = view
+        this.pContext = pContext
     }
 
     override fun detachView() {
         if (iBaseView != null){
             iBaseView=null
         }
+        if (pContext != null){
+            pContext = null
+        }
     }
     //获取Model 的实例化
-    override fun newInstanceModel(model: M) {
+    override fun newInstanceModel() {
 //        this.iBaseModel = model
         // 获取Class类对象
-        val cls = model::class.java
-        // 调用newInstance方法创建Person类对象
+        val cls = BaseModel::class.java
         //将子类的引用对象指向 父类
-        iBaseModel = cls.newInstance()
+        iBaseModel = cls.newInstance() as M?
     }
 
     override fun detachModel() {
