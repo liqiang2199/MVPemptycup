@@ -5,12 +5,13 @@ import com.emptycup.cupmvp.mvp.handlerview.IHandler
 import com.emptycup.cupmvp.mvp.model.BaseModel
 import com.emptycup.cupmvp.mvp.view.IBaseView
 import java.lang.ref.WeakReference
+import java.lang.reflect.ParameterizedType
 
 /**
  * Created by Administrator on 2017/12/16.
- * 绑定 View 层
+ * 绑定 View 层 和Model 层
  */
- abstract class BasePersenterImp<M : BaseModel> : IBasePersenter<IBaseView, M>,IHandler{
+ abstract class BasePersenterImp<V:IBaseView,M : BaseModel> : IBasePersenter<V>,IHandler{
 
     /**
      * 为了 使 Persenter 的子类 选择性 实现 IHandler 接口
@@ -22,30 +23,47 @@ import java.lang.ref.WeakReference
     override fun IHandler_RequestError(o: Any){}//请求异常 或者错误
     override fun IHandler_SignleSignOn(o: Any){}//单点登录 实现
 
-    var iBaseView:IBaseView ?= null
+    var iBaseView:WeakReference<V> ?= null// 利用 弱引用
     var iBaseModel:M ?= null
+
     var pContext:Context ?= null
     //绑定View
-    override fun attachView(pContext:Context,view: IBaseView) {
-        this.iBaseView  = view
+    override fun attachView(pContext:Context,view: V) {
+        //获取实例化
+        this.iBaseView  = WeakReference(view)
         this.pContext = pContext
-    }
 
+        newInstanceModel()
+    }
+    fun getWeakView(): V? {
+        return iBaseView!!.get()
+    }
     override fun detachView() {
         if (iBaseView != null){
+            iBaseView!!.clear()
             iBaseView=null
         }
         if (pContext != null){
             pContext = null
         }
     }
+
     //获取Model 的实例化
     override fun newInstanceModel() {
-//        this.iBaseModel = model
-        // 获取Class类对象
-        val cls = BaseModel::class.java
-        //将子类的引用对象指向 父类
-        iBaseModel = cls.newInstance() as M?
+//        // 获取Class类对象
+//        val cls = BaseModel::class.java
+//        //将子类的引用对象指向 父类
+//        iBaseModel = cls.newInstance() as M?
+
+        val type = javaClass.genericSuperclass//使用反射实例化Model
+        val trueType = (type as ParameterizedType).actualTypeArguments[1]
+        try {
+            this.iBaseModel = (trueType as Class<M>).newInstance()
+        } catch (e: InstantiationException) {
+            e.printStackTrace()
+        } catch (e: IllegalAccessException) {
+            e.printStackTrace()
+        }
     }
 
     override fun detachModel() {
@@ -54,24 +72,14 @@ import java.lang.ref.WeakReference
         }
     }
 
-    override fun onDestroy(o: Any) {
+    //销毁 界面的View  和 Model 层的实例
+    override fun onDestroy(o: V) {
         detachView()
         detachModel()
     }
 
-    override fun onPause(o: Any) {
-
-    }
-
-    override fun onResume(o: Any) {
-
-    }
-
-    override fun onStart(o: Any) {
-
-    }
-
-    override fun onStop(o: Any) {
-
-    }
+    override fun onPause(o: V) {}
+    override fun onResume(o: V) {}
+    override fun onStart(o: V) {}
+    override fun onStop(o: V) {}
 }

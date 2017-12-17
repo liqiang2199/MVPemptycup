@@ -14,7 +14,7 @@ import android.icu.lang.UCharacter.GraphemeClusterBreak.V
  *   V  Model层
  *
  */
-interface IBasePersenter<T,V> {
+interface IBasePersenter<T> {
 
     fun attachView(pContext: Context, view: T)//初始化 View
     fun detachView()//将View值空
@@ -23,9 +23,9 @@ interface IBasePersenter<T,V> {
     fun detachModel()//销毁Model
 
     //绑定 Activity 生命周期 回收 引用类型
-    fun onStart(o:Any)
-    fun onResume(o:Any)
-    fun onPause(o:Any)
-    fun onStop(o:Any)
-    fun onDestroy(o:Any)
+    fun onStart(o:T)
+    fun onResume(o:T)
+    fun onPause(o:T)
+    fun onStop(o:T)
+    fun onDestroy(o:T)
 }
