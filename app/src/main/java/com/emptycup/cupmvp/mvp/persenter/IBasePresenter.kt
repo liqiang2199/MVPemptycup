@@ -2,7 +2,7 @@ package com.emptycup.cupmvp.mvp.persenter
 
 import android.content.Context
 import android.icu.lang.UCharacter.GraphemeClusterBreak.V
-
+import com.emptycup.cupmvp.mvp.view.IBaseView
 
 
 /**
@@ -14,9 +14,9 @@ import android.icu.lang.UCharacter.GraphemeClusterBreak.V
  *   V  Model层
  *
  */
-interface IBasePersenter<T> {
+interface IBasePresenter<in T :IBaseView> {
 
-    fun attachView(pContext: Context, view: T)//初始化 View
+    fun attachView(view: T)//初始化 View
     fun detachView()//将View值空
 
     fun newInstanceModel()// 获取 Model 对象

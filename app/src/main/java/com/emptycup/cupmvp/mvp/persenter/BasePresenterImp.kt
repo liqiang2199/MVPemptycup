@@ -2,16 +2,14 @@ package com.emptycup.cupmvp.mvp.persenter
 
 import android.content.Context
 import com.emptycup.cupmvp.mvp.handlerview.IHandler
-import com.emptycup.cupmvp.mvp.model.BaseModel
 import com.emptycup.cupmvp.mvp.view.IBaseView
 import java.lang.ref.WeakReference
-import java.lang.reflect.ParameterizedType
 
 /**
  * Created by Administrator on 2017/12/16.
  * 绑定 View 层 和Model 层
  */
- abstract class BasePersenterImp<V:IBaseView,M : BaseModel> : IBasePersenter<V>,IHandler{
+ abstract class BasePresenterImp<V:IBaseView> : IBasePresenter<V>,IHandler{
 
     /**
      * 为了 使 Persenter 的子类 选择性 实现 IHandler 接口
@@ -24,16 +22,16 @@ import java.lang.reflect.ParameterizedType
     override fun IHandler_SignleSignOn(o: Any){}//单点登录 实现
 
     var iBaseView:WeakReference<V> ?= null// 利用 弱引用
-    var iBaseModel:M ?= null
+//    var iBaseModel:M ?= null
 
     var pContext:Context ?= null
     //绑定View
-    override fun attachView(pContext:Context,view: V) {
+    override fun attachView( view:V) {
         //获取实例化
         this.iBaseView  = WeakReference(view)
-        this.pContext = pContext
+//        this.pContext = pContext
 
-        newInstanceModel()
+//        newInstanceModel()
     }
     fun getWeakView(): V? {
         return iBaseView!!.get()
@@ -55,21 +53,21 @@ import java.lang.reflect.ParameterizedType
 //        //将子类的引用对象指向 父类
 //        iBaseModel = cls.newInstance() as M?
 
-        val type = javaClass.genericSuperclass//使用反射实例化Model
-        val trueType = (type as ParameterizedType).actualTypeArguments[1]
-        try {
-            this.iBaseModel = (trueType as Class<M>).newInstance()
-        } catch (e: InstantiationException) {
-            e.printStackTrace()
-        } catch (e: IllegalAccessException) {
-            e.printStackTrace()
-        }
+//        val type = javaClass.genericSuperclass//使用反射实例化Model
+//        val trueType = (type as ParameterizedType).actualTypeArguments[1]
+//        try {
+//            this.iBaseModel = (trueType as Class<M>).newInstance()
+//        } catch (e: InstantiationException) {
+//            e.printStackTrace()
+//        } catch (e: IllegalAccessException) {
+//            e.printStackTrace()
+//        }
     }
-
+//
     override fun detachModel() {
-        if (iBaseModel != null){
-            iBaseModel=null
-        }
+//        if (iBaseModel != null){
+//            iBaseModel=null
+//        }
     }
 
     //销毁 界面的View  和 Model 层的实例

@@ -5,10 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.emptycup.cupmvp.MainActivity;
-import com.emptycup.cupmvp.mvp.persenter.BasePersenterImp;
+import com.emptycup.cupmvp.mvp.persenter.BasePresenterImp;
 import com.emptycup.cupmvp.mvp.view.IBaseView;
-import java.lang.reflect.Type;
+
 import java.lang.reflect.ParameterizedType;
 
 /**
@@ -18,7 +17,7 @@ import java.lang.reflect.ParameterizedType;
  * P  Presenter层
  */
 
-public abstract class BaseActivity<V extends IBaseView,P extends BasePersenterImp> extends Activity
+public abstract class BaseActivity<V extends IBaseView,P extends BasePresenterImp> extends Activity
 implements IBaseView{
     public P presenter;
 public Class<P> clazz;
@@ -28,7 +27,7 @@ public Class<P> clazz;
     }
 
     //绑定 View 和 Presenter
-    public BasePersenterImp Init_Presenter(String name) throws Exception {
+    public BasePresenterImp Init_Presenter(String name) throws Exception {
         if (presenter == null){
 
             Log.v("this","初始化           1");
@@ -36,7 +35,7 @@ public Class<P> clazz;
 
 
             // 1获取子类的class(在创建子类对象的时候,会返回父类的构造方法)
-//            Class<? extends BasePersenterImp> clazz = BasePersenterImp.class; // Student
+//            Class<? extends BasePresenterImp> clazz = BasePresenterImp.class; // Student
 //            presenter = (P) clazz.newInstance();
 
             ParameterizedType pt = (ParameterizedType)getClass().getGenericSuperclass();
@@ -45,7 +44,7 @@ public Class<P> clazz;
 
         }
         Log.v("this","初始化     2  ");
-        presenter.attachView(this,this);
+        presenter.attachView(this);
         return presenter;
     }
 
