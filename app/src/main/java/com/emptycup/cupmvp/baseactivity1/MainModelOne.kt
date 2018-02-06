@@ -13,7 +13,9 @@ class MainModelOne :BaseModel() {
         this.context  = context
         this.iHandler  = miHandler
     }
-
+     fun Init_Handler(miHandler: IHandler) {
+        this.iHandler  = miHandler
+    }
     fun http_GeRequest(){
         iHandler!!.IHandler_Success("成功")
     }

@@ -1,5 +1,6 @@
 package com.emptycup.cupmvp.baseactivity1.support
 
+import android.util.Log
 import com.emptycup.cupmvp.mvp.persenter.IBasePresenter
 import com.emptycup.cupmvp.mvp.view.IBaseView
 
@@ -28,7 +29,8 @@ class ProxyMvpCallBack<V: IBaseView,  P: IBasePresenter<V>>(var mvpCallBack: Mvp
     }
 
     fun attachView(){
-        getBasePresenter().attachView(getBaseView())
+        Log.v("attachView","     getBaseView        "+getBaseView())
+        createPresenter().attachView(getBaseView())
     }
 
     fun detachVeiw(){

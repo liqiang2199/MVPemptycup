@@ -1,6 +1,7 @@
 package com.emptycup.cupmvp.baseactivity1.support
 
 import android.os.Bundle
+import android.util.Log
 import com.emptycup.cupmvp.mvp.persenter.IBasePresenter
 import com.emptycup.cupmvp.mvp.view.IBaseView
 
@@ -13,10 +14,12 @@ import com.emptycup.cupmvp.mvp.view.IBaseView
     private var proxyMvpCallBack:ProxyMvpCallBack<V,P> ?= null
 
     constructor(mvpCallBack: MvpCallBack<V,P>){
+        Log.v("mvpCallBack","   mvpCallBack   ++++++ ")
         this.proxyMvpCallBack = ProxyMvpCallBack(mvpCallBack)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.v("mvpCallBack","   ActivityProxyImpl    onCreate ")
         if (proxyMvpCallBack != null){
             proxyMvpCallBack!!.createPresenter()
             proxyMvpCallBack!!.createView()

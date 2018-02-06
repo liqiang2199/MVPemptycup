@@ -2,18 +2,18 @@ package com.emptycup.cupmvp.baseactivity1;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.emptycup.cupmvp.R;
-import com.emptycup.cupmvp.baseactivity.BaseActivity;
-import com.emptycup.cupmvp.baseactivity.MainPresenter;
-import com.emptycup.cupmvp.baseactivity.MainView;
+import com.emptycup.cupmvp.baseactivity.MainPresenterOne;
+import com.emptycup.cupmvp.baseactivity.MainViewOne;
 
 import org.jetbrains.annotations.NotNull;
 
-public class MainActivityOne extends BaseActivityOne<MainView,MainPresenter> implements MainView {
+public class MainActivityOne extends BaseActivityOne<MainViewOne, MainPresenterOne> implements MainViewOne {
 
 
     @Override
@@ -25,6 +25,8 @@ public class MainActivityOne extends BaseActivityOne<MainView,MainPresenter> imp
         text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                Toast.makeText(MainActivityOne.this,"IView_Success",Toast.LENGTH_SHORT).show();
+                Log.v("mainOne","    请求成功 getBasePresenter()   "+getBasePresenter().toString());
                 if (getBasePresenter() != null){
                     getBasePresenter().http_Model();
                 }else{
@@ -38,13 +40,14 @@ public class MainActivityOne extends BaseActivityOne<MainView,MainPresenter> imp
 
     @NotNull
     @Override
-    public MainPresenter createPresenter() {
-        return new MainPresenter();
+    public MainPresenterOne createPresenter() {
+        return new MainPresenterOne();
     }
 
     @Override
     public void IView_Success(@NonNull Object o) {
-        Toast.makeText(this,"IView_Success",Toast.LENGTH_SHORT).show();
+//        Handler
+        Log.v("mainOne","    请求成功    "+o.toString());
     }
 
     @Override

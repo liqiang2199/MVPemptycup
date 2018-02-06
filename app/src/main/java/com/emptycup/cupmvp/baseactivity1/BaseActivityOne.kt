@@ -2,6 +2,7 @@ package com.emptycup.cupmvp.baseactivity1
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.emptycup.cupmvp.baseactivity1.support.ActivityProxyImpl
 import com.emptycup.cupmvp.baseactivity1.support.IActivityProxy
@@ -29,6 +30,7 @@ abstract class BaseActivityOne< V : IBaseView,  P : IBasePresenter< V>> : Activi
         return activityProxyImpl!!
     }
 
+
     private var presenter:P ?= null
 
     override fun createPresenter(): P {
@@ -40,7 +42,7 @@ abstract class BaseActivityOne< V : IBaseView,  P : IBasePresenter< V>> : Activi
     }
 
     override fun getBasePresenter(): P {
-        return presenter!!
+        return createPresenter()
     }
 
     override fun getBaseView(): V {
@@ -54,10 +56,17 @@ abstract class BaseActivityOne< V : IBaseView,  P : IBasePresenter< V>> : Activi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        if ( activityProxyImpl != null){
-            //抛空
+//            //抛空
 //            activityProxyImpl = ActivityProxyImpl(this)
-        getActivityProxyImpl().onCreate(savedInstanceState!!)
+//
+            getActivityProxyImpl().onCreate(savedInstanceState)
+//        }else{
+//            Log.v("activityProxyImpl","   activityProxyImpl  NULL   ++++++ ")
 //        }
+
+//        val proxyMvpCallBack = ActivityProxyImpl(this)
+//        activityProxyImpl = ActivityProxyImpl(this)
+//        activityProxyImpl!!.onCreate(savedInstanceState)
     }
 
     override fun onDestroy() {

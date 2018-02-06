@@ -2,13 +2,13 @@ package com.emptycup.cupmvp;
 
 import android.support.annotation.NonNull;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.emptycup.cupmvp.baseactivity.BaseActivity;
 import com.emptycup.cupmvp.baseactivity.MainPresenter;
 import com.emptycup.cupmvp.baseactivity.MainView;
+
+import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends BaseActivity<MainView,MainPresenter> implements MainView {
 
@@ -17,23 +17,25 @@ public class MainActivity extends BaseActivity<MainView,MainPresenter> implement
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        try {
-            Init_Presenter(MainPresenter.class.getName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        TextView text  = (TextView) findViewById(R.id.text);
-        text.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (presenter != null){
-                    presenter.http_Model();
-                }else{
-                    Toast.makeText(MainActivity.this,"presenter is Null",Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
+//        try {
+//            Init_Presenter(MainPresenter.class.getName());
+//            iTestView = new TestViewImpl();
+//            iTestView.setTestView();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        TextView text  = (TextView) findViewById(R.id.text);
+//        text.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (presenter != null){
+//                    presenter.http_Model();
+//                }else{
+//                    Toast.makeText(MainActivity.this,"presenter is Null",Toast.LENGTH_SHORT).show();
+//                }
+//
+//            }
+//        });
 
     }
 
@@ -65,5 +67,34 @@ public class MainActivity extends BaseActivity<MainView,MainPresenter> implement
     @Override
     public void IView_SignleSignOn(@NonNull Object o) {
         Toast.makeText(this,"IView_SignleSignOn",Toast.LENGTH_SHORT).show();
+    }
+
+    @NotNull
+    @Override
+    public MainPresenter createPresenter() {
+        return null;
+    }
+
+    @NotNull
+    @Override
+    public MainView createView() {
+        return null;
+    }
+
+    @NotNull
+    @Override
+    public MainPresenter getBasePresenter() {
+        return null;
+    }
+
+    @Override
+    public void setBasePresenter(MainPresenter presenter) {
+
+    }
+
+    @NotNull
+    @Override
+    public MainView getBaseView() {
+        return null;
     }
 }
