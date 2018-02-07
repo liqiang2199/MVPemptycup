@@ -1,5 +1,7 @@
 package com.emptycup.cupmvp.basednxymvpstudents.demo;
 
+import java.lang.ref.WeakReference;
+
 /**
  * Created by Administrator on 2018/2/6.
  * 抽象的父类
@@ -7,17 +9,18 @@ package com.emptycup.cupmvp.basednxymvpstudents.demo;
 
 public abstract class MvpPresenter<V extends MVPView> {
 
-    private V view;
+    private WeakReference<V> view;
 
     public void attachView(V view){
-        this.view = view;
+        this.view = new  WeakReference(view);
     }
 
     public V getLoginView(){
-        return view;
+        return view.get();
     }
     public void detachView(){
         if (view != null){
+            view.clear();
             view = null;
         }
     }

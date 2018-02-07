@@ -24,6 +24,7 @@ public class ProxyMvpCallBack<V extends MVPView,P extends MvpPresenter<V>> imple
         if (presenter == null){
             throw new NullPointerException("presenter Is Null");
         }
+        this.mvpCallBack.setPresenter(presenter);
         return presenter;
     }
 
