@@ -4,9 +4,9 @@ import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.emptycup.cupmvp.baseactivity.BaseActivity;
-import com.emptycup.cupmvp.baseactivity.MainPresenter;
-import com.emptycup.cupmvp.baseactivity.MainView;
+import com.emptycup.cupmvp.test.BaseActivity;
+import com.emptycup.cupmvp.test.MainPresenter;
+import com.emptycup.cupmvp.test.MainView;
 
 import org.jetbrains.annotations.NotNull;
 
