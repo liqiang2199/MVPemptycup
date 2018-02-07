@@ -13,11 +13,16 @@
 
         </activity>
 
-        <activity android:name=".baseactivity1.MainActivityOne">
+        <activity android:name=".testone.MainActivityOne">
 
         </activity>
 
-        <activity android:name=".basednxymvpstudents.MainMvpActivity">
+        <activity android:name=".javamvp.MainMvpActivity">
+
+        </activity>
+
+        <activity android:name=".kotlinmvp.MainKotlinMvpActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
