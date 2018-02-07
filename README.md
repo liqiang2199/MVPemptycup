@@ -7,4 +7,6 @@
 *  包名：com.emptycup.cupmvp.basednxymvpstudents
 *  >BaseActivity 、support 文件下的所有类、MvpPresenter
   和View 的基类 全部引入项目，其他的可以换成自己的相关联的类及接口
-
+####
+*  >kotlin版的MVP （2017/2/7）
+*  >和java 的使用方式一样
